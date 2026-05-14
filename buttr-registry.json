@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-05-14T17:17:18.128530+00:00",
+  "generated": "2026-05-14T18:16:36.199019+00:00",
   "foundation": [
     "buttr",
     "buttr-unity",
@@ -16,6 +16,42 @@
     "shortDescription": "Dependency injection (core)"
   },
   "packages": [
+    {
+      "shortName": "belfry",
+      "fullName": "com.clabs.belfry",
+      "gitUrl": "https://github.com/Crumpet-Labs/CLabs.Belfry.git#v0.1.0",
+      "altGitUrl": "https://github.com/Crumpet-Labs/CLabs.Core.git?path=packages/com.clabs.belfry#v0.1.0",
+      "dependencies": [
+        "buttr",
+        "tickets"
+      ],
+      "group": "Core Systems",
+      "description": "Event-driven pub/sub messaging via Tower/Rope/Ring metaphor",
+      "shortDescription": "Pub/sub messaging"
+    },
+    {
+      "shortName": "tickets",
+      "fullName": "com.clabs.tickets",
+      "gitUrl": "https://github.com/Crumpet-Labs/CLabs.Tickets.git#v0.1.0",
+      "altGitUrl": "https://github.com/Crumpet-Labs/CLabs.Core.git?path=packages/com.clabs.tickets#v0.1.0",
+      "dependencies": [
+        "buttr"
+      ],
+      "group": "Infrastructure",
+      "description": "Cross-engine async/await task primitive. Hard fork of Cysharp UniTask 2.5.10 (MIT), engine-decoupled and Buttr-integrated.",
+      "shortDescription": "Async/await primitive",
+      "unsafeCode": true
+    },
+    {
+      "shortName": "utility",
+      "fullName": "com.clabs.utility",
+      "gitUrl": "https://github.com/Crumpet-Labs/CLabs.Utility.git#v0.1.0",
+      "altGitUrl": "https://github.com/Crumpet-Labs/CLabs.Core.git?path=packages/com.clabs.utility#v0.1.0",
+      "dependencies": [],
+      "group": "Foundation",
+      "description": "Shared utilities — Registry, Disposable, SerializableDictionary",
+      "shortDescription": "Shared utilities"
+    },
     {
       "shortName": "buttr-unity",
       "fullName": "com.crumpetlabs.buttr.unity",
