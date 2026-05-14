@@ -41,47 +41,6 @@ namespace CLabs.Tickets.Linq
             return source.Do(observer.OnNext, observer.OnError, observer.OnCompleted); // alloc delegate.
         }
 
-        // not yet impl.
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwait<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket> onNext)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwait<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket> onNext, Func<Exception, Ticket> onError)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwait<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket> onNext, Func<Ticket> onCompleted)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwait<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket> onNext, Func<Exception, Ticket> onError, Func<Ticket> onCompleted)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwaitWithCancellation<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket> onNext)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwaitWithCancellation<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket> onNext, Func<Exception, CancellationToken, Ticket> onError)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwaitWithCancellation<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket> onNext, Func<CancellationToken, Ticket> onCompleted)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static ITicketAsyncEnumerable<TSource> DoAwaitWithCancellation<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket> onNext, Func<Exception, CancellationToken, Ticket> onError, Func<CancellationToken, Ticket> onCompleted)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 
     internal sealed class Do<TSource> : ITicketAsyncEnumerable<TSource>

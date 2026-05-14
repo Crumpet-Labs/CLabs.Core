@@ -1141,10 +1141,6 @@ References: `CLabs.Tickets`
   - `string ToString()`
   - `int Count()`
 
-### `Runtime/TicketPackage.cs`
-- **class static TicketPackage**
-  - `IConfigurableCollection UseTicketPackage(this ApplicationBuilder builder)`
-
 ### Assembly `CLabs.Tickets.Linq`
 
 ### `Runtime/Linq/Aggregate.cs`

@@ -6,8 +6,7 @@ namespace CLabs.Belfry {
         private readonly Dictionary<BellChannel, List<BellBinding>> m_Listeners = new();
         private int m_NextSequence;
 
-        public IDisposable Subscribe(BellChannel channel, Delegate handler, int priority = 0) {
-            var binding = new BellBinding(channel, handler, priority, m_NextSequence++);
+        public IDisposable Subscribe(in BellBinding binding, int priority = 0) {
             InsertSorted(binding);
             return new BellSubscription(this, new[] { binding });
         }
@@ -21,7 +20,7 @@ namespace CLabs.Belfry {
             return new BellSubscription(this, sequenced);
         }
 
-        public void Publish<T>(BellChannel channel, in T message) where T : struct {
+        public void Publish<T>(in BellChannel channel, in T message) where T : struct {
             if (m_Listeners.TryGetValue(channel, out var list)) {
                 // Snapshot to tolerate (un)subscribe-during-dispatch re-entrancy.
                 var snapshot = list.ToArray();
@@ -31,7 +30,7 @@ namespace CLabs.Belfry {
             }
         }
 
-        public IReadOnlyList<BellBinding> GetBindings(BellChannel channel) {
+        public IReadOnlyList<BellBinding> GetBindings(in BellChannel channel) {
             if (m_Listeners.TryGetValue(channel, out var list))
                 return list.ToArray();
             return Array.Empty<BellBinding>();

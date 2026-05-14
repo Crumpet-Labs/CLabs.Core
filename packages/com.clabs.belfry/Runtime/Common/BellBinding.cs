@@ -13,14 +13,14 @@ namespace CLabs.Belfry {
         public int Priority { get; }
         public int Sequence { get; }
 
-        public BellBinding(BellChannel channel, Delegate handler, int priority = 0) {
+        public BellBinding(in BellChannel channel, Delegate handler, int priority = 0) {
             Channel = channel;
             Handler = handler;
             Priority = priority;
             Sequence = 0;
         }
 
-        internal BellBinding(BellChannel channel, Delegate handler, int priority, int sequence) {
+        internal BellBinding(in BellChannel channel, Delegate handler, int priority, int sequence) {
             Channel = channel;
             Handler = handler;
             Priority = priority;

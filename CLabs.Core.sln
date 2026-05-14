@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Belfry", "packages/com.clabs.belfry/Runtime/CLabs.Belfry.csproj", "{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Tickets", "packages/com.clabs.tickets/Runtime/CLabs.Tickets.csproj", "{3D63431D-89BE-84F1-6344-144638058CEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Utility", "packages/com.clabs.utility/Runtime/CLabs.Utility.csproj", "{F69A35A2-F61B-6AC4-508E-76002EDCD110}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D63431D-89BE-84F1-6344-144638058CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D63431D-89BE-84F1-6344-144638058CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D63431D-89BE-84F1-6344-144638058CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D63431D-89BE-84F1-6344-144638058CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69A35A2-F61B-6AC4-508E-76002EDCD110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69A35A2-F61B-6AC4-508E-76002EDCD110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69A35A2-F61B-6AC4-508E-76002EDCD110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69A35A2-F61B-6AC4-508E-76002EDCD110}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

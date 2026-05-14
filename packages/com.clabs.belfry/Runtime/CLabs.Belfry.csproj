@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>CLabs.Belfry</AssemblyName>
+    <RootNamespace>CLabs.Belfry</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Buttr.Core" Version="1.3.4" />
+    <ProjectReference Include="../../com.clabs.tickets/Runtime/CLabs.Tickets.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -12,7 +12,7 @@
         (typeof(float),"float"),
         (typeof(double),"double"),
         (typeof(decimal),"decimal"),
-        
+
         (typeof(int?),"double?"),
         (typeof(long?),"double?"),
         (typeof(float?),"float?"),
@@ -28,21 +28,21 @@
 #>
 using System;
 using System.Threading;
-using Cysharp.Threading.Tasks.Internal;
+using CLabs.Tickets.Internal;
 
-namespace Cysharp.Threading.Tasks.Linq
+namespace CLabs.Tickets.Linq
 {
-    public static partial class UniTaskAsyncEnumerable
+    public static partial class TicketAsyncEnumerable
     {
 <# foreach(var (t, ret) in types) { #>
-        public static UniTask<<#= ret #>> AverageAsync(this IUniTaskAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken = default)
+        public static Ticket<<#= ret #>> AverageAsync(this ITicketAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
 
             return Average.AverageAsync(source, cancellationToken);
         }
 
-        public static UniTask<<#= ret #>> AverageAsync<TSource>(this IUniTaskAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken = default)
+        public static Ticket<<#= ret #>> AverageAsync<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
             Error.ThrowArgumentNullException(source, nameof(selector));
@@ -50,7 +50,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return Average.AverageAsync(source, selector, cancellationToken);
         }
 
-        public static UniTask<<#= ret #>> AverageAwaitAsync<TSource>(this IUniTaskAsyncEnumerable<TSource> source, Func<TSource, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
+        public static Ticket<<#= ret #>> AverageAwaitAsync<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
             Error.ThrowArgumentNullException(source, nameof(selector));
@@ -58,7 +58,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return Average.AverageAwaitAsync(source, selector, cancellationToken);
         }
 
-        public static UniTask<<#= ret #>> AverageAwaitWithCancellationAsync<TSource>(this IUniTaskAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
+        public static Ticket<<#= ret #>> AverageAwaitWithCancellationAsync<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
             Error.ThrowArgumentNullException(source, nameof(selector));
@@ -72,7 +72,7 @@ namespace Cysharp.Threading.Tasks.Linq
     internal static class Average
     {
 <# foreach(var (t, ret) in types) { #>
-        public static async UniTask<<#= ret #>> AverageAsync(IUniTaskAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken)
+        public static async Ticket<<#= ret #>> AverageAsync(ITicketAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken)
         {
             long count = 0;
             <#= TypeName(t) #> sum = 0;
@@ -86,7 +86,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     var v = e.Current;
                     if (v.HasValue)
                     {
-                        checked    
+                        checked
                         {
                             sum += v.Value;
                             count++;
@@ -112,7 +112,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return <#= CalcResult(t) #>;
         }
 
-        public static async UniTask<<#= ret #>> AverageAsync<TSource>(IUniTaskAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken)
+        public static async Ticket<<#= ret #>> AverageAsync<TSource>(ITicketAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken)
         {
             long count = 0;
             <#= TypeName(t) #> sum = 0;
@@ -126,7 +126,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     var v = selector(e.Current);
                     if (v.HasValue)
                     {
-                        checked    
+                        checked
                         {
                             sum += v.Value;
                             count++;
@@ -152,7 +152,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return <#= CalcResult(t) #>;
         }
 
-        public static async UniTask<<#= ret #>> AverageAwaitAsync<TSource>(IUniTaskAsyncEnumerable<TSource> source, Func<TSource, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
+        public static async Ticket<<#= ret #>> AverageAwaitAsync<TSource>(ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
         {
             long count = 0;
             <#= TypeName(t) #> sum = 0;
@@ -166,7 +166,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     var v = await selector(e.Current);
                     if (v.HasValue)
                     {
-                        checked    
+                        checked
                         {
                             sum += v.Value;
                             count++;
@@ -192,7 +192,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return <#= CalcResult(t) #>;
         }
 
-        public static async UniTask<<#= ret #>> AverageAwaitWithCancellationAsync<TSource>(IUniTaskAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
+        public static async Ticket<<#= ret #>> AverageAwaitWithCancellationAsync<TSource>(ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
         {
             long count = 0;
             <#= TypeName(t) #> sum = 0;
@@ -206,7 +206,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     var v = await selector(e.Current, cancellationToken);
                     if (v.HasValue)
                     {
-                        checked    
+                        checked
                         {
                             sum += v.Value;
                             count++;

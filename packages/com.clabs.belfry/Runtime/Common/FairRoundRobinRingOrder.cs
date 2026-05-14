@@ -25,6 +25,7 @@ namespace CLabs.Belfry {
             if (m_ActivePriorities.Count == 0) return false;
 
             var attempts = 0;
+            
             while (attempts < m_ActivePriorities.Count) {
                 m_CurrentPriorityIndex = (m_CurrentPriorityIndex + 1) % m_ActivePriorities.Count;
                 var priority = m_ActivePriorities[m_CurrentPriorityIndex];

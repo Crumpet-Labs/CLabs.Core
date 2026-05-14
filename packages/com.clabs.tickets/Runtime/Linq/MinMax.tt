@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -12,7 +12,7 @@
         typeof(float),
         typeof(double),
         typeof(decimal),
-        
+
         typeof(int?),
         typeof(long?),
         typeof(float?),
@@ -26,22 +26,22 @@
 #>
 using System;
 using System.Threading;
-using Cysharp.Threading.Tasks.Internal;
+using CLabs.Tickets.Internal;
 
-namespace Cysharp.Threading.Tasks.Linq
+namespace CLabs.Tickets.Linq
 {
 <# foreach(var (minMax, op) in new[]{("Min",">"), ("Max", "<")}) { #>
-    public static partial class UniTaskAsyncEnumerable
+    public static partial class TicketAsyncEnumerable
     {
 <# foreach(var t in types) { #>
-        public static UniTask<<#= TypeName(t) #>> <#= minMax #>Async(this IUniTaskAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken = default)
+        public static Ticket<<#= TypeName(t) #>> <#= minMax #>Async(this ITicketAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
 
             return <#= minMax #>.<#= minMax #>Async(source, cancellationToken);
         }
 
-        public static UniTask<<#= TypeName(t) #>> <#= minMax #>Async<TSource>(this IUniTaskAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken = default)
+        public static Ticket<<#= TypeName(t) #>> <#= minMax #>Async<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
             Error.ThrowArgumentNullException(source, nameof(selector));
@@ -49,7 +49,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return <#= minMax #>.<#= minMax #>Async(source, selector, cancellationToken);
         }
 
-        public static UniTask<<#= TypeName(t) #>> <#= minMax #>AwaitAsync<TSource>(this IUniTaskAsyncEnumerable<TSource> source, Func<TSource, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
+        public static Ticket<<#= TypeName(t) #>> <#= minMax #>AwaitAsync<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
             Error.ThrowArgumentNullException(source, nameof(selector));
@@ -57,7 +57,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return <#= minMax #>.<#= minMax #>AwaitAsync(source, selector, cancellationToken);
         }
 
-        public static UniTask<<#= TypeName(t) #>> <#= minMax #>AwaitWithCancellationAsync<TSource>(this IUniTaskAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
+        public static Ticket<<#= TypeName(t) #>> <#= minMax #>AwaitWithCancellationAsync<TSource>(this ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken = default)
         {
             Error.ThrowArgumentNullException(source, nameof(source));
             Error.ThrowArgumentNullException(source, nameof(selector));
@@ -71,7 +71,7 @@ namespace Cysharp.Threading.Tasks.Linq
     internal static partial class <#= minMax #>
     {
 <# foreach(var t in types) { #>
-        public static async UniTask<<#= TypeName(t) #>> <#= minMax #>Async(IUniTaskAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken)
+        public static async Ticket<<#= TypeName(t) #>> <#= minMax #>Async(ITicketAsyncEnumerable<<#= TypeName(t) #>> source, CancellationToken cancellationToken)
         {
             <#= TypeName(t) #> value = default;
 
@@ -83,7 +83,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     value = e.Current;
 <# if (IsNullable(t)) { #>
                     if(value == null) continue;
-<# } #>                
+<# } #>
                     goto NEXT_LOOP;
                 }
 
@@ -91,7 +91,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 return default;
 <# } else { #>
                 throw Error.NoElements();
-<# } #>                
+<# } #>
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -117,7 +117,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return value;
         }
 
-        public static async UniTask<<#= TypeName(t) #>> <#= minMax #>Async<TSource>(IUniTaskAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken)
+        public static async Ticket<<#= TypeName(t) #>> <#= minMax #>Async<TSource>(ITicketAsyncEnumerable<TSource> source, Func<TSource, <#= TypeName(t) #>> selector, CancellationToken cancellationToken)
         {
             <#= TypeName(t) #> value = default;
 
@@ -129,7 +129,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     value = selector(e.Current);
 <# if (IsNullable(t)) { #>
                     if(value == null) continue;
-<# } #>                
+<# } #>
                     goto NEXT_LOOP;
                 }
 
@@ -137,7 +137,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 return default;
 <# } else { #>
                 throw Error.NoElements();
-<# } #>                
+<# } #>
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -163,7 +163,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return value;
         }
 
-        public static async UniTask<<#= TypeName(t) #>> <#= minMax #>AwaitAsync<TSource>(IUniTaskAsyncEnumerable<TSource> source, Func<TSource, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
+        public static async Ticket<<#= TypeName(t) #>> <#= minMax #>AwaitAsync<TSource>(ITicketAsyncEnumerable<TSource> source, Func<TSource, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
         {
             <#= TypeName(t) #> value = default;
 
@@ -175,7 +175,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     value = await selector(e.Current);
 <# if (IsNullable(t)) { #>
                     if(value == null) continue;
-<# } #>                
+<# } #>
                     goto NEXT_LOOP;
                 }
 
@@ -183,7 +183,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 return default;
 <# } else { #>
                 throw Error.NoElements();
-<# } #>                
+<# } #>
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())
@@ -209,7 +209,7 @@ namespace Cysharp.Threading.Tasks.Linq
             return value;
         }
 
-        public static async UniTask<<#= TypeName(t) #>> <#= minMax #>AwaitWithCancellationAsync<TSource>(IUniTaskAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, UniTask<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
+        public static async Ticket<<#= TypeName(t) #>> <#= minMax #>AwaitWithCancellationAsync<TSource>(ITicketAsyncEnumerable<TSource> source, Func<TSource, CancellationToken, Ticket<<#= TypeName(t) #>>> selector, CancellationToken cancellationToken)
         {
             <#= TypeName(t) #> value = default;
 
@@ -221,7 +221,7 @@ namespace Cysharp.Threading.Tasks.Linq
                     value = await selector(e.Current, cancellationToken);
 <# if (IsNullable(t)) { #>
                     if(value == null) continue;
-<# } #>                
+<# } #>
                     goto NEXT_LOOP;
                 }
 
@@ -229,7 +229,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 return default;
 <# } else { #>
                 throw Error.NoElements();
-<# } #>                
+<# } #>
                 NEXT_LOOP:
 
                 while (await e.MoveNextAsync())

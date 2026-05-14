@@ -30,8 +30,11 @@ namespace CLabs.Belfry {
             return tcs.Task;
         }
 
-        public IDisposable On<T>(BellMessage<T> handler, int priority = 0) where T : struct
-            => m_Belfry.Subscribe(new BellChannel(m_Key, typeof(T)), handler, priority);
+        public IDisposable On<T>(BellMessage<T> handler, int priority = 0) where T : struct {
+            var channel = new BellChannel(m_Key, typeof(T));
+            var binding = new BellBinding(channel, handler, priority);
+            return m_Belfry.Subscribe(binding);
+        }
 
         public IDisposable On(params IBellListener[] listeners) {
             var bindings = new BellBinding[listeners.Length];
