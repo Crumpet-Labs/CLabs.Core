@@ -1,64 +1,88 @@
 # CLabs.Core
 
-Reusable, engine-agnostic gameplay packages for Unity 6+, by Crumpet Labs.
+A .NET-native distribution of the **CLabs** game-development standard library — a curated, opinionated set of packages and bridges for building games in plain C#, designed to compose cleanly with the [Buttr](https://github.com/Crumpet-Labs/Buttr.Core) dependency-injection framework.
 
-Packages here are published by Crumpet Labs — don't edit them in this repo
-directly; open an issue or discussion instead. This repo is **engine-agnostic**:
-engine-specific adapters live in their own repos (e.g.
-[CLabs.Unity](https://github.com/Crumpet-Labs/CLabs.Unity)).
+This is the **.NET-native monorepo**. It contains every public CLabs package, bridge, and adapter as a project, wired together via a root `CLabs.Core.sln`. Build it with `dotnet build`, reference the projects you want from your own solution, and you have a complete CLabs runtime.
 
-## Install
+If you're building a Unity project, you don't want this repo — use [CLabs.Unity](https://github.com/Crumpet-Labs/CLabs.Unity) instead. CLabs.Core is for non-Unity .NET work.
 
-CLabs.Core packages depend on **Buttr.Core** for dependency injection, so you
-install two things: **Buttr.Core first, then the CLabs.Core package you want**.
+## What's in here
 
-### Step by step
-
-1. Open your Unity project (Unity 6 or newer), then open **Window → Package
-   Manager**.
-2. Click the **+** button in the top-left, then choose **Add package from git
-   URL…**.
-3. Paste this URL and press Enter — **Buttr.Core**:
-   `https://github.com/Crumpet-Labs/Buttr.Core.git?path=package#v1.3.3`
-4. Once it finishes importing, add the **CLabs.Core package** you want — for
-   example, Utility:
-   `https://github.com/Crumpet-Labs/CLabs.Core.git?path=packages/com.clabs.utility#v0.1.0`
-
-Swap `utility` for whichever package you need. Each package is also published to
-its own repo for a shorter URL — e.g.
-`https://github.com/Crumpet-Labs/CLabs.Dough.git#v0.1.0`.
-
-### Or edit your manifest directly
-
-Add the entries to your project's `Packages/manifest.json`:
-
-```json
-{
-  "dependencies": {
-    "com.crumpetlabs.buttr": "https://github.com/Crumpet-Labs/Buttr.Core.git?path=package#v1.3.3",
-    "com.clabs.utility": "https://github.com/Crumpet-Labs/CLabs.Core.git?path=packages/com.clabs.utility#v0.1.0"
-  }
-}
+```
+CLabs.Core
++- packages/      domain packages (Belfry, Tickets, Utility, ...)  -- the building blocks
++- bridges/       cross-package wiring (e.g. dough-prep, stats-bell)
++- adapters/      where engine adapters would live for non-Unity engines
++- CLabs.Core.sln root solution referencing every project
 ```
 
-Unity-specific adapters (ScriptableObject wrappers, MonoBehaviour controllers,
-editor tooling) live in **[CLabs.Unity](https://github.com/Crumpet-Labs/CLabs.Unity)**.
+Each package has its own `Documentation~/README.md` with package-specific install, usage, and dependency details.
 
-## Layout
+## What CLabs is for
 
-| Path | What |
-|------|------|
-| `packages/` | engine-agnostic packages (`com.clabs.*`) |
-| `bridges/` | cross-package integration (`com.clabs.bridge.*`) |
+Building games — across engines, across teams, with stable conventions. The library was extracted from years of shipping commercial Unity games; it's deliberately concrete (no abstract-framework navel-gazing), Buttr-first (DI everywhere, no static singletons), and engine-pluggable (cores are pure C#, engine specifics live in adapters).
 
-Unity adapters are **not** in this repo — they live in
-[CLabs.Unity](https://github.com/Crumpet-Labs/CLabs.Unity).
+Highlights of the public surface in this repo:
 
-## Requirements
+- **Belfry** — type-safe key-scoped pub/sub messaging (Tower / Rope / Ring).
+- **Tickets** — cross-engine async/await primitive (hard fork of UniTask 2.5.10).
+- **Utility** — foundation utilities: `OwnerId`, `Color`, `Registry<,>`, `Disposable`, resource providers, reflection + I/O helpers.
 
-Unity 6+. Depends on [Buttr](https://github.com/Crumpet-Labs/Buttr.Core) for
-dependency injection.
+More packages will land here as they're promoted from the private development monorepo. The list of live packages is the manifest of what's stable enough to use in production.
+
+## Installation
+
+### Whole-monorepo install (recommended for evaluation)
+
+```bash
+git clone https://github.com/Crumpet-Labs/CLabs.Core.git
+cd CLabs.Core
+dotnet build CLabs.Core.sln
+```
+
+Then reference the projects you want from your own `.csproj`:
+
+```xml
+<ItemGroup>
+  <ProjectReference Include="path/to/CLabs.Core/packages/com.clabs.belfry/CLabs.Belfry.csproj" />
+  <ProjectReference Include="path/to/CLabs.Core/packages/com.clabs.tickets/CLabs.Tickets.csproj" />
+  <ProjectReference Include="path/to/CLabs.Core/packages/com.clabs.utility/CLabs.Utility.csproj" />
+</ItemGroup>
+```
+
+### Single-package install (production)
+
+Each package also ships in its own repo. Use those when you want to depend on just one package without pulling the rest:
+
+- [CLabs.Belfry](https://github.com/Crumpet-Labs/CLabs.Belfry) — pub/sub messaging
+- [CLabs.Tickets](https://github.com/Crumpet-Labs/CLabs.Tickets) — async/await primitive
+- [CLabs.Utility](https://github.com/Crumpet-Labs/CLabs.Utility) — foundation utilities
+
+Each package's README lists its CLabs dependencies — install them in dependency order.
+
+### Buttr dependency
+
+Every CLabs package that does dependency injection (most of them) requires [Buttr.Core](https://github.com/Crumpet-Labs/Buttr.Core). Install Buttr first, then CLabs packages register their services on its `ApplicationBuilder`:
+
+```csharp
+using Buttr.Core;
+using CLabs.Belfry;
+
+var builder = new ApplicationBuilder();
+builder.UseBelfry();
+var app = builder.Build();
+```
+
+## Versioning
+
+CLabs.Core ships **unified versions** — a single semver per release covering every package in the monorepo. Per-package repos carry their own per-package semver (PATCH on fix, MINOR on feat, MAJOR on breaking change) and the unified version is `max()` across them.
+
+Every release is tagged `v<X.Y.Z>` and gets a GitHub Release with grouped notes (Breaking changes / Features / Fixes) — see the [Releases](https://github.com/Crumpet-Labs/CLabs.Core/releases) tab.
 
 ## License
 
-See [LICENSE](LICENSE).
+MIT, unless a package's own `LICENSE.md` says otherwise (e.g. CLabs.Tickets preserves Cysharp's original UniTask copyright). See each package directory for specifics.
+
+## Project status
+
+CLabs is in active development. The public surface is intentionally small while we get the publishing pipeline solid; expect more packages to be promoted as they're stabilised.
