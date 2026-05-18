@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>CLabs.SpoonBelfry</AssemblyName>
+    <RootNamespace>CLabs.Bridges</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../packages/com.clabs.spoon/Runtime/CLabs.Spoon.csproj" />
+    <ProjectReference Include="../../../packages/com.clabs.belfry/Runtime/CLabs.Belfry.csproj" />
+    <ProjectReference Include="../../../packages/com.clabs.utility/Runtime/CLabs.Utility.csproj" />
+    <PackageReference Include="Buttr.Core" Version="1.3.4" />
+  </ItemGroup>
+</Project>

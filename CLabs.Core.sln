@@ -2,6 +2,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Belfry", "packages/com.clabs.belfry/Runtime/CLabs.Belfry.csproj", "{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Crumb", "packages/com.clabs.crumb/Runtime/CLabs.Crumb.csproj", "{A33FED11-8C28-F8E5-E123-6089F15B3B1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Fork", "packages/com.clabs.fork/Runtime/CLabs.Fork.csproj", "{35C7401B-330A-FE84-CB82-2863AD814EC4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Spoon", "packages/com.clabs.spoon/Runtime/CLabs.Spoon.csproj", "{EF742C2A-B201-3760-C648-C80916F85443}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.SpoonBelfry", "bridges/com.clabs.bridge.spoon-belfry/Runtime/CLabs.SpoonBelfry.csproj", "{0556E74F-3296-7055-3B93-ECBF8DCAEACA}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Tickets", "packages/com.clabs.tickets/Runtime/CLabs.Tickets.csproj", "{3D63431D-89BE-84F1-6344-144638058CEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLabs.Utility", "packages/com.clabs.utility/Runtime/CLabs.Utility.csproj", "{F69A35A2-F61B-6AC4-508E-76002EDCD110}"
@@ -16,6 +24,22 @@ Global
 		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7B9AC5-DF15-C973-C58E-70DF8396B0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A33FED11-8C28-F8E5-E123-6089F15B3B1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A33FED11-8C28-F8E5-E123-6089F15B3B1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A33FED11-8C28-F8E5-E123-6089F15B3B1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A33FED11-8C28-F8E5-E123-6089F15B3B1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35C7401B-330A-FE84-CB82-2863AD814EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35C7401B-330A-FE84-CB82-2863AD814EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35C7401B-330A-FE84-CB82-2863AD814EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35C7401B-330A-FE84-CB82-2863AD814EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF742C2A-B201-3760-C648-C80916F85443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF742C2A-B201-3760-C648-C80916F85443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF742C2A-B201-3760-C648-C80916F85443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF742C2A-B201-3760-C648-C80916F85443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0556E74F-3296-7055-3B93-ECBF8DCAEACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0556E74F-3296-7055-3B93-ECBF8DCAEACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0556E74F-3296-7055-3B93-ECBF8DCAEACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0556E74F-3296-7055-3B93-ECBF8DCAEACA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D63431D-89BE-84F1-6344-144638058CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D63431D-89BE-84F1-6344-144638058CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D63431D-89BE-84F1-6344-144638058CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
